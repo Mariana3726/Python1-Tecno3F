@@ -5,6 +5,7 @@ def print_board(board):
     for row in board:
         print(" | ".join(row))
         print("-" * 5)
+    print()  # Agregar una línea en blanco después de imprimir el tablero
 
 # Función para verificar si hay un ganador
 def check_win(board, player):
@@ -16,7 +17,7 @@ def check_win(board, player):
         if all([board[row][col] == player for row in range(3)]):
             return True
     if all([board[i][i] == player for i in range(3)]) or all([board[i][2 - i] == player for i in range(3)]):
-        return True
+            return True
     return False
 
 # Función para verificar si hay un empate
