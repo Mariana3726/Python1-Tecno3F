@@ -1,22 +1,28 @@
-import random #para generar números aleatorios
-import json #para guardar y cargar datos en un formato que el programa pueda leer y escribir
+import random
+import pickle
 
 # Diccionario para almacenar los tickets
 tickets = {}
 
-#carga tickets desde un archivo
+# Cargar tickets desde un archivo
 def cargar_tickets():
     try:
-        with open('tickets.json', 'r') as file:
+        with open('tickets.pkl', 'rb') as file:
             global tickets
-            tickets = json.load(file)
+            tickets = pickle.load(file)
+            print("Tickets cargados exitosamente.")
     except FileNotFoundError:
         tickets = {}
+        print("No se encontró el archivo de tickets. Se creará uno nuevo.")
+    except EOFError:
+        tickets = {}
+        print("El archivo de tickets está vacío. Se creará uno nuevo.")
 
-#guardar los tickets en un archivo
+# Guardar tickets en un archivo
 def guardar_tickets():
-    with open('tickets.json', 'w') as file:
-        json.dump(tickets, file)
+    with open('tickets.pkl', 'wb') as file:
+        pickle.dump(tickets, file)
+        print("Tickets guardados exitosamente.")
 
 def alta_ticket():
     while True:
