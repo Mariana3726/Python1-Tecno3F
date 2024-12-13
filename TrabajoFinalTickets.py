@@ -1,7 +1,22 @@
-import random
+import random #para generar números aleatorios
+import json #para guardar y cargar datos en un formato que el programa pueda leer y escribir
 
 # Diccionario para almacenar los tickets
 tickets = {}
+
+#carga tickets desde un archivo
+def cargar_tickets():
+    try:
+        with open('tickets.json', 'r') as file:
+            global tickets
+            tickets = json.load(file)
+    except FileNotFoundError:
+        tickets = {}
+
+#guardar los tickets en un archivo
+def guardar_tickets():
+    with open('tickets.json', 'w') as file:
+        json.dump(tickets, file)
 
 def alta_ticket():
     while True:
@@ -17,6 +32,8 @@ def alta_ticket():
             "Asunto": asunto,
             "Problema": problema
         }
+
+        guardar_tickets()
 
         print(f"\nTicket generado exitosamente!")
         print(f"Número de Ticket: {numero_ticket}")
@@ -51,6 +68,7 @@ def leer_ticket():
             break
 
 def main():
+    cargar_tickets()
     while True:
         print("Menú:")
         print("1. Alta ticket")
